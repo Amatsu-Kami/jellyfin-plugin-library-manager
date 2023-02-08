@@ -10,9 +10,9 @@
             {
                 "version": "0.0.0.1",
                 "changelog": "Alpha release.\n",
-                "targetAbi": "10.7.0.0",
+                "targetAbi": "10.8.0.0",
                 "sourceUrl": "https://github.com/Amatsu-Kami/jellyfin-plugin-library-manager/archive/refs/tags/0.0.0.1.zip",
-                "checksum": "9108ff907e09f4655dd216beea271dee",
+                "checksum": "c9c799b0d8e7f28eb8d520d8969daed2",
                 "timestamp": "2023-02-08T12:40:01Z"
             }
         ]
