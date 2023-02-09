@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using Jellyfin.Plugin.Template.Configuration;
+using Jellyfin.Plugin.Library.Manager.Configuration;
 using MediaBrowser.Common.Configuration;
 using MediaBrowser.Common.Plugins;
 using MediaBrowser.Model.Plugins;
 using MediaBrowser.Model.Serialization;
 
-namespace Jellyfin.Plugin.Template;
+namespace Jellyfin.Plugin.Library.Manager;
 
 /// <summary>
 /// The main plugin.
@@ -26,7 +25,7 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
     }
 
     /// <inheritdoc />
-    public override string Name => "Library-Manager";
+    public override string Name => "Library Manager";
 
     /// <inheritdoc />
     public override Guid Id => Guid.Parse("ee998539-7959-4afa-a88a-9755e315b839");
@@ -43,8 +42,8 @@ public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
         {
             new PluginPageInfo
             {
-                Name = this.Name,
-                EmbeddedResourcePath = string.Format(CultureInfo.InvariantCulture, "{0}.Configuration.configPage.html", GetType().Namespace)
+                Name = "librarymanager",
+                EmbeddedResourcePath = GetType().Namespace + ".Configuration.librarymanager.html"
             }
         };
     }

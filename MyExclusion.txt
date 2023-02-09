@@ -1,0 +1,1 @@
+C:\Users\chris\Desktop\Plugin_Jellyfin_Library_Manager\Code\jellyfin-plugin-library-manager\Jellyfin.Plugin.Library.Manager\bin\Debug\net6.0\ref\

@@ -29,3 +29,5 @@ x64/
 .idea/
 .vscode/
 artifacts
+*.bat
+*.txt
