@@ -1,3 +1,4 @@
+using MediaBrowser.Controller.Library;
 using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.Library.Manager.Configuration;
