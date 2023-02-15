@@ -8,6 +8,12 @@ namespace Jellyfin.Plugin.Library.Manager.Models
     public class Library
     {
         /// <summary>
+        /// Gets or sets the name of the library.
+        /// </summary>
+        [JsonPropertyName("name")]
+        public string? Name { get; set; }
+
+        /// <summary>
         /// Gets or sets the path of the library.
         /// </summary>
         [JsonPropertyName("language_code")]
