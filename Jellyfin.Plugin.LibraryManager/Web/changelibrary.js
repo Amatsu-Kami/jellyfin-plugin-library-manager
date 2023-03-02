@@ -20,8 +20,6 @@ export default function (view, param) {
         Dashboard.showLoadingMsg();
         const userId = ApiClient.getCurrentUserId();
         const count = ApiClient.getItemCounts(userId);
-        console.log('test');
-        console.log('here is the count' + count);
         const libraryUrl = form.querySelector('#LocationsList');
         const data = JSON.stringify({ LibraryUrl: libraryUrl });
         const url = ApiClient.getUrl('Jellyfin.Plugin.LibraryManager/ChangeLibrary');
@@ -32,8 +30,9 @@ export default function (view, param) {
 
             ApiClient.updatePluginConfiguration(LibraryManagerConfig.pluginId, config).then(result => {
                 Dashboard.processPluginConfigurationUpdateResult(result);
-            })
-        })
+            });
+        });
+        ApiClient.ajax({ type: 'POST', url, data, contentType: 'application/json' });
     })
 }
 
@@ -56,7 +55,12 @@ function setLibraryDiv(page) {
 function setMediaDiv(page) {
     const MediaList = page.querySelector('#MediaList');
     const userId = ApiClient.getCurrentUserId();
-    const options = 'isMovie';
+    const options = {
+        SortBy: "SortName",
+        SortOrder: "Ascending",
+        IncludeItemTypes: "Movie,Series",
+        Recursive: true
+    };
     ApiClient.getItems(userId, options).then(medias => {
         let mediasHtml = '<div data-role="controlgroup">';
         for (let media of medias.Items) {
