@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Jellyfin.Plugin.LibraryManager</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Jellyfin.Controller" Version="10.8.0" />
+    <PackageReference Include="Jellyfin.Model" Version="10.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Web\librarymanager.html" />
+    <None Remove="Web\changelibrary.html" />
+    <None Remove="Web\changelibrary.js" />
+    <None Remove="Web\librarymanager.js" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="Web\changelibrary.html" />
+    <EmbeddedResource Include="Web\changelibrary.js" />
+    <EmbeddedResource Include="Web\librarymanager.js" />
+    <EmbeddedResource Include="Web\librarymanager.html" />
+  </ItemGroup>
+
+</Project>

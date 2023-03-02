@@ -1,0 +1,29 @@
+<div id="ChangeLibraryConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-controller="__plugin/ChangeLibrary_js">
+    <div data-role="content">
+        <div class="content-primary">
+            <form id="ChangeLibraryConfigForm">
+                <div class="selectContainer">
+                    <h3 class="sectionTitle sectionTitle-cards"><b>Select the media to move.</b></h3>
+                    <h3 class="selectLabel">Medias : </h3>
+                    <select is="emby-select" class="emby-select-withcolor emby-select" id="MediaList"></select>
+                    <div class="fieldDescription">
+                        You must choose a media.
+                    </div>
+                </div>
+                <div class="selectContainer">
+                    <h3 class="sectionTitle sectionTitle-cards"><b>Select the library to move the media to.</b></h3>
+                    <h3 class="selectLabel">Libraries : </h3>
+                    <select is="emby-select" class="emby-select-withcolor emby-select" id="LibraryList"></select>
+                    <div class="fieldDescription">
+                        You must choose a library.
+                    </div>
+                </div>
+                <div>
+                    <button is="emby-button" type="submit" class="raised button-submit block emby-button">
+                        <span>${Change}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
