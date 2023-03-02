@@ -20,11 +20,13 @@ Define `JellyfinHome` environment variable pointing to your Jellyfin distributio
 
 ## How to use
 
-Once the plugin is installed on Jellyfin, you will be able to use it when you log in as the administrator. If you click on the 3 dot of a media, in the menu that pops up, there will be an option called "Edit Library". If you chose that option, you will then see a dropdown menu with the function you want to use, the default function is "Change Library". There will also be another dropdown menu with all your library. The library you chose will be the library the media will move to.
+Once the plugin is installed on Jellyfin, you will be able to use it when you log in as the administrator. If you go in the dashboard and then in the extensions menu, you will find the extension : Library Manager. If you select it, you will have the option to either change the library of a media or to add the media to another library.
 
-There will also be an option in the dropdown menu called "Add Library", which will show the window to add a library, once the library is created, you will be brought back to the dropdown menu with all your library.
+If you select the change option, this will redirect you to another page where you will be able to change the library of a media. Simply choose the media you want to change the library and select the library you want to send it to. Then, click on the button 'Change' to confirm.
 
-In the first dropdown menu, where you choose the function to use, you can change it to "Add To Library". This functionality will let you copy the media to another library, but beware as this will take double the space, since the media will be present in two library.
+There will also be another button called "Add Library", which will show the window to add a library, once the library is created, you will be brought back to the page where you were.
+
+The second functionality is to 'Add to Library'. This functionality will let you copy the media to another library, but beware as this will take double the space, since the media will be present in two library.
 
 ## Code
 

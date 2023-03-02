@@ -2,21 +2,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "jellyfin", "..\..\..\..\Program Files\Jellyfin\Server\jellyfin.exe", "{D51D5113-A85A-4E6E-B938-781F81A902D1}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = C:\Program Files\Jellyfin\Server\Jellyfin.exe
-		RemoteMachine = LAPTOP-AMATSU
-		StartingDirectory = C:\Program Files\Jellyfin\Server
-		Arguments = 
-		Environment = Default
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		UseLegacyDebugEngines = No
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
-		IORedirection = Auto
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Jellyfin.Plugin.LibraryManager", "Jellyfin.Plugin.LibraryManager\Jellyfin.Plugin.LibraryManager.csproj", "{07E58E94-B7D3-437B-AF50-7649CACE7CA2}"
 EndProject
 Global
@@ -27,10 +12,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D51D5113-A85A-4E6E-B938-781F81A902D1}.Debug|Any CPU.ActiveCfg = Release|x64
-		{D51D5113-A85A-4E6E-B938-781F81A902D1}.Debug|x64.ActiveCfg = Release|x64
-		{D51D5113-A85A-4E6E-B938-781F81A902D1}.Release|Any CPU.ActiveCfg = Release|x64
-		{D51D5113-A85A-4E6E-B938-781F81A902D1}.Release|x64.ActiveCfg = Release|x64
 		{07E58E94-B7D3-437B-AF50-7649CACE7CA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07E58E94-B7D3-437B-AF50-7649CACE7CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07E58E94-B7D3-437B-AF50-7649CACE7CA2}.Debug|x64.ActiveCfg = Debug|Any CPU
