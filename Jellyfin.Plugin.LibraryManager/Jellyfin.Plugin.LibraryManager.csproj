@@ -27,4 +27,8 @@
     <EmbeddedResource Include="Web\librarymanager.html" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="$(ConfigurationName) == Debug And $(OS) == Windows_NT">
+    <Exec Command="xcopy /I /Y $(TargetDir) &quot;$(TargetDir)/data/plugins/Library-Manager/&quot;" />
+  </Target>
+  
 </Project>

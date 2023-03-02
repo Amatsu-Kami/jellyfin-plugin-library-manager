@@ -14,6 +14,10 @@ This plugin let the user manage his library without having to go in the file exp
   - Download Archive from [Latest Release](https://github.com/Amatsu-Kami/jellyfin-plugin-library-manager/releases/latest)
   - Follow the [instruction](https://jellyfin.org/docs/general/server/plugins/index.html)
 
+## Debugging
+
+Define `JellyfinHome` environment variable pointing to your Jellyfin distribution to be able to run debug configuration. (The folder containing your Jellyfin.exe)
+
 ## How to use
 
 Once the plugin is installed on Jellyfin, you will be able to use it when you log in as the administrator. If you click on the 3 dot of a media, in the menu that pops up, there will be an option called "Edit Library". If you chose that option, you will then see a dropdown menu with the function you want to use, the default function is "Change Library". There will also be another dropdown menu with all your library. The library you chose will be the library the media will move to.

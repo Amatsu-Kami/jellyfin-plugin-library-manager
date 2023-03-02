@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Jellyfin": {
+      "commandName": "Executable",
+      "executablePath": "$(JellyfinHome)\\jellyfin.exe",
+      "commandLineArgs": "-d \"$(TargetDir)data\""
+    }
+  }
+}
