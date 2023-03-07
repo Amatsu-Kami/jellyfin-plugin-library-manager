@@ -16,11 +16,11 @@
                 "timestamp": "2023-02-08T12:40:01Z"
             },
             {
-                "version":   "1.0.0.0",
+                "version": "1.0.0.0",
                 "changelog": "1.0 release.\n",
                 "targetAbi": "10.8.0.0",
                 "sourceUrl": "https://github.com/Amatsu-Kami/jellyfin-plugin-library-manager/archive/refs/tags/1.0.0.0.zip",
-                "checksum":  "e451439ffcede1e126f10c041f51e550",
+                "checksum": "d4dfb0f6a82f42cbfaaa7c42b0da94ac",
                 "timestamp": "2023-03-06T23:16:01Z"
             }
         ]
