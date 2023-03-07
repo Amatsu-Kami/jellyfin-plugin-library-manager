@@ -29,7 +29,6 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
         /// Constructor.
         /// </summary>
         /// <param name="libraryManager">Library Manager.</param>
-        /// <param name="fileSystem">Access to the file system.</param>
         public LibraryManagerController(ILibraryManager libraryManager)
         {
             _libraryManager = libraryManager;

@@ -12,3 +12,5 @@ category: "General"
 owner: "Amatsu-Kami"
 artifacts:
 - "Jellyfin.Plugin.Library.Manager.dll"
+changelog: >
+  changelog
