@@ -2,13 +2,12 @@
 
 name: "Library-Manager"
 guid: "ee998539-7959-4afa-a88a-9755e315b839"
-version: "0.0.0.1"
+version: "1.0.0.0"
 targetAbi: "10.8.0.0"
 framework: "net6.0"
-overview: "Short description about your plugin"
+overview: "This plugin let's you manage your library."
 description: >
-  This is a longer description that can span more than one
-  line and include details about your plugin.
+  This plugin let's you change the library of the medias.
 category: "General"
 owner: "Amatsu-Kami"
 artifacts:
