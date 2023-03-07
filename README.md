@@ -2,7 +2,7 @@
 
 ## About
 
-**This plugin is not yet functional. This is still a work in progress!**
+**This is still a work in progress!**
 
 This plugin let the user manage his library without having to go in the file explorer. This will let you change the library of the media. It will also give you the ability to create a new library when changing the library of the media.
 

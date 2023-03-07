@@ -10,30 +10,30 @@ export default function (view, param) {
         ApiClient.getPluginConfiguration(LibraryManagerConfig.pluginId).then(config => {
             setLibraryDiv(page);
             setMediaDiv(page);
-
             Dashboard.hideLoadingMsg();
         })
     })
 
     view.querySelector('#ChangeLibraryConfigForm').addEventListener('submit', function (e) {
-        const form = this
+        e.preventDefault();
         Dashboard.showLoadingMsg();
-        const userId = ApiClient.getCurrentUserId();
-        const count = ApiClient.getItemCounts(userId);
-        const libraryUrl = form.querySelector('#LocationsList');
-        const data = JSON.stringify({ LibraryUrl: libraryUrl });
-        const url = ApiClient.getUrl('Jellyfin.Plugin.LibraryManager/ChangeLibrary');
+        const form = this
+        const libraryUrl = form.querySelector('#LibraryList').value;
+        const mediaName = form.querySelector('#MediaList').value;
+        const data = JSON.stringify({ LibraryUrl: libraryUrl, MediaName: mediaName });
+        const url = ApiClient.getUrl('LibraryManager/ChangeLibrary');
 
         ApiClient.getPluginConfiguration(LibraryManagerConfig.pluginId).then(config => {
-            config.LibraryUrl = Array.prototype.map.call(libraryUrl.querySelectorAll(),
-                elem => elem.getAttribute('data-path'));
+            config.LibraryUrl = libraryUrl;
+            config.MediaName = mediaName;
 
             ApiClient.updatePluginConfiguration(LibraryManagerConfig.pluginId, config).then(result => {
                 Dashboard.processPluginConfigurationUpdateResult(result);
             });
+            ApiClient.ajax({ type: 'POST', url, data, contentType: 'application/json' });
         });
-        ApiClient.ajax({ type: 'POST', url, data, contentType: 'application/json' });
-    })
+        return false;
+    });
 }
 
 function setLibraryDiv(page) {
@@ -81,7 +81,7 @@ function getLibraryPathHtml(path) {
 
 function getMediaNameHtml(name) {
     let html = '<label>';
-    html += '<option data-mini="true" data-path="' + name + '"' + ' />';
+    html += '<option data-mini="true" data-name="' + name + '"' + ' />';
     html += '<span>' + name + '</span></label>';
     return html;
 }

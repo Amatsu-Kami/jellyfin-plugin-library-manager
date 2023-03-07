@@ -6,24 +6,17 @@ export default function (view, param) {
 
     view.addEventListener('viewshow', function (e) {
         const page = this;
-        const newName = 'ChangeLibrary';
-        const newUrl = changePageUrl(newName);
-        console.log(newUrl);
     })
 
-    view.querySelector('#LibraryManagerConfigForm').addEventListener('submit', function (e) {
+    view.querySelector('#LibraryManagerConfigForm').addEventListener('reset', function (e) {
         const form = this;
         Dashboard.showLoadingMsg();
 
         const newName = 'ChangeLibrary';
         const newUrl = changePageUrl(newName);
-
-        ApiClient.getPluginConfiguration(LibraryManagerConfig.pluginId).then(config => {
-            ApiClient.updatePluginConfiguration(LibraryManagerConfig.pluginId, config).then(result => {
-                Dashboard.processPluginConfigurationUpdateResult(result);
-            });
-        });
+        
         window.location.href = newUrl;
+        Dashboard.hideLoadingMsg();
     });
 }
 

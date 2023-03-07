@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Jellyfin.Data.Enums;
 using Jellyfin.Plugin.LibraryManager.Model;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
+using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,11 +19,10 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
     /// </summary>
     [ApiController]
     [Authorize(Policy = "RequiresElevation")]
-    [Route("ChangeLibrary")]
+    [Route("LibraryManager")]
     public class LibraryManagerController : ControllerBase
     {
         private readonly ILibraryManager _libraryManager;
-        private readonly IFileSystem _fileSystem;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LibraryManagerController"/> class.
@@ -27,10 +30,9 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
         /// </summary>
         /// <param name="libraryManager">Library Manager.</param>
         /// <param name="fileSystem">Access to the file system.</param>
-        public LibraryManagerController(ILibraryManager libraryManager, IFileSystem fileSystem)
+        public LibraryManagerController(ILibraryManager libraryManager)
         {
             _libraryManager = libraryManager;
-            _fileSystem = fileSystem;
         }
 
         /// <summary>
@@ -38,25 +40,36 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
         /// </summary>
         /// <param name="inputInfo">The item</param>
         /// <returns>HTTP Status.</returns>
-        [HttpPut("/ChangeLibrary")]
+        [HttpPost("ChangeLibrary")]
         public Task<BaseItem> ChangeLibrary([FromBody] InputInfo inputInfo)
         {
             try
             {
-                BaseItem media;
-                media = _libraryManager.GetItemById(inputInfo.MediaName);
-                BaseItem library;
-                library = _libraryManager.GetItemById(inputInfo.LibraryUrl);
-                if (media != null && (media.MediaType == "movie" || media.MediaType == "series"))
+                var query = new InternalItemsQuery
                 {
-                    string sourceFile = media.Path;
-                    string destinationFile = library.Path;
+                    IncludeItemTypes = new[] { BaseItemKind.Movie, BaseItemKind.Series },
+                    Recursive = true,
+                };
+                BaseItem media = _libraryManager.GetItemList(query).Find(x => x.Name.Contains(inputInfo.MediaName));
+                string library = inputInfo.LibraryUrl;
+                if (media != null && library != null)
+                {
+                    string sourceFile;
+                    string destinationFile;
+                    if (media.IsFolder)
+                    {
+                        sourceFile = media.Path;
+                        destinationFile = library + "\\" + media.Name;
+                    }
+                    else
+                    {
+                        sourceFile = media.ContainingFolderPath.ToString();
+                        destinationFile = library + "\\" + media.Name;
+                    }
 
-                    _fileSystem.SwapFiles(sourceFile, destinationFile);
+                    Copy(sourceFile, destinationFile);
 
-                    // System.IO.File.Move(sourceFile, destinationFile);
-
-                    media.Path = destinationFile;
+                    Directory.Delete(sourceFile, true);
 
                     return Task.FromResult(media);
                 }
@@ -68,6 +81,44 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
             catch
             {
                 return (Task<BaseItem>)Task.FromException(new TaskCanceledException("An error has occured."));
+            }
+        }
+
+        /// <summary>
+        /// Class to copy files to another folder.
+        /// </summary>
+        /// <param name="source">The source of the directory.</param>
+        /// <param name="target">Where to copy the folder to.</param>
+        private static void Copy(string source, string target)
+        {
+            DirectoryInfo diSource = new DirectoryInfo(source);
+            DirectoryInfo diTarget = new DirectoryInfo(target);
+
+            CopyAll(diSource, diTarget);
+        }
+
+        /// <summary>
+        /// Class to copy everything from the folder.
+        /// </summary>
+        /// <param name="source">The source of the directory.</param>
+        /// <param name="target">Where to copy the folder to.</param>
+        private static void CopyAll(DirectoryInfo source, DirectoryInfo target)
+        {
+            Directory.CreateDirectory(target.FullName);
+
+            // Copy each file into the new directory.
+            foreach (FileInfo file in source.GetFiles())
+            {
+                Console.WriteLine(@"Copying {0}\{1}", target.FullName, file.Name);
+                file.CopyTo(Path.Combine(target.FullName, file.Name), true);
+            }
+
+            // Copy each subdirectory using recursion.
+            foreach (DirectoryInfo subDirectories in source.GetDirectories())
+            {
+                DirectoryInfo nextSubDirectories =
+                    target.CreateSubdirectory(subDirectories.Name);
+                CopyAll(subDirectories, nextSubDirectories);
             }
         }
     }
