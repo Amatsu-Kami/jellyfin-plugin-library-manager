@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Jellyfin.Data.Enums;
 using Jellyfin.Plugin.LibraryManager.Model;
 using MediaBrowser.Controller.Entities;
 using MediaBrowser.Controller.Library;
-using MediaBrowser.Model.Entities;
-using MediaBrowser.Model.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -35,12 +32,14 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
         }
 
         /// <summary>
-        /// To move a media from a library to another.
+        /// Move a media from a library to another.
         /// </summary>
         /// <param name="inputInfo">The item</param>
         /// <returns>HTTP Status.</returns>
         [HttpPost("ChangeLibrary")]
-        public Task<BaseItem> ChangeLibrary([FromBody] InputInfo inputInfo)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> ChangeLibrary([FromBody] InputInfo inputInfo)
         {
             try
             {
@@ -51,35 +50,101 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
                 };
                 BaseItem media = _libraryManager.GetItemList(query).Find(x => x.Name.Contains(inputInfo.MediaName));
                 string library = inputInfo.LibraryUrl;
+                BaseItem mediaLibrary = media.GetParent();
                 if (media != null && library != null)
                 {
-                    string sourceFile;
-                    string destinationFile;
-                    if (media.IsFolder)
+                    if (mediaLibrary.Path == library)
                     {
-                        sourceFile = media.Path;
-                        destinationFile = library + "\\" + media.Name;
+                        return BadRequest(new { Message = "The media is already in the library" });
                     }
                     else
                     {
-                        sourceFile = media.ContainingFolderPath.ToString();
-                        destinationFile = library + "\\" + media.Name;
+                        string sourceFile;
+                        string destinationFile;
+                        if (media.IsFolder)
+                        {
+                            sourceFile = media.Path;
+                            destinationFile = library + "\\" + media.Name;
+                        }
+                        else
+                        {
+                            sourceFile = media.ContainingFolderPath.ToString();
+                            destinationFile = library + "\\" + media.Name;
+                        }
+
+                        await Task.Run(() => Copy(sourceFile, destinationFile));
+
+                        Directory.Delete(sourceFile, true);
+
+                        return Ok(new { Message = "The media has been changed successfully." });
                     }
-
-                    Copy(sourceFile, destinationFile);
-
-                    Directory.Delete(sourceFile, true);
-
-                    return Task.FromResult(media);
                 }
                 else
                 {
-                    return (Task<BaseItem>)Task.FromException(new TaskCanceledException("An error has occured."));
+                    return BadRequest(new { Message = "An error has occured." });
                 }
             }
             catch
             {
-                return (Task<BaseItem>)Task.FromException(new TaskCanceledException("An error has occured."));
+                return BadRequest(new { Message = "An error has occured." });
+            }
+        }
+
+        /// <summary>
+        /// Add a media to another library.
+        /// </summary>
+        /// <param name="inputInfo">The item</param>
+        /// <returns>HTTP Status.</returns>
+        [HttpPost("AddToLibrary")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> AddToLibrary([FromBody] InputInfo inputInfo)
+        {
+            try
+            {
+                var query = new InternalItemsQuery
+                {
+                    IncludeItemTypes = new[] { BaseItemKind.Movie, BaseItemKind.Series },
+                    Recursive = true,
+                };
+                BaseItem media = _libraryManager.GetItemList(query).Find(x => x.Name.Contains(inputInfo.MediaName));
+                string library = inputInfo.LibraryUrl;
+                BaseItem mediaLibrary = media.GetParent();
+                if (media != null && library != null)
+                {
+                    if (mediaLibrary.Path == library)
+                    {
+                        return BadRequest(new { Message = "The media is already in the library" });
+                    }
+                    else
+                    {
+                        string sourceFile;
+                        string destinationFile;
+                        if (media.IsFolder)
+                        {
+                            sourceFile = media.Path;
+                            destinationFile = library + "\\" + media.Name;
+                        }
+                        else
+                        {
+                            sourceFile = media.ContainingFolderPath.ToString();
+                            destinationFile = library + "\\" + media.Name;
+                        }
+
+                        await Task.Run(() => Copy(sourceFile, destinationFile));
+
+                        return Ok(new { Message = "The media has been added successfully." });
+                    }
+
+                }
+                else
+                {
+                    return BadRequest(new { Message = "An error has occured." });
+                }
+            }
+            catch
+            {
+                return BadRequest(new { Message = "An error has occured." });
             }
         }
 
@@ -115,8 +180,7 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
             // Copy each subdirectory using recursion.
             foreach (DirectoryInfo subDirectories in source.GetDirectories())
             {
-                DirectoryInfo nextSubDirectories =
-                    target.CreateSubdirectory(subDirectories.Name);
+                DirectoryInfo nextSubDirectories = target.CreateSubdirectory(subDirectories.Name);
                 CopyAll(subDirectories, nextSubDirectories);
             }
         }

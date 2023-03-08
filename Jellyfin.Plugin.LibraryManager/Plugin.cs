@@ -60,6 +60,17 @@ namespace Jellyfin.Plugin.LibraryManager
                     Name = "ChangeLibrary_js",
                     EmbeddedResourcePath = $"{GetType().Namespace}.Web.changelibrary.js",
                 }
+                ,
+                new PluginPageInfo
+                {
+                    Name = "AddToLibrary",
+                    EmbeddedResourcePath = $"{GetType().Namespace}.Web.addtolibrary.html",
+                },
+                new PluginPageInfo
+                {
+                    Name = "AddToLibrary_js",
+                    EmbeddedResourcePath = $"{GetType().Namespace}.Web.addtolibrary.js",
+                }
             };
         }
     }

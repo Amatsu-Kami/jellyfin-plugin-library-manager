@@ -1,11 +1,19 @@
 <div id="LibraryManagerConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-controller="__plugin/LibraryManager_js">
     <div data-role="content">
         <div class="content-primary">
-            <form id="LibraryManagerConfigForm">
+            <form id="ChangeLibraryConfigForm">
                 <div>
                     <h3>Change the library of a media</h3>
                     <button is="emby-button" type="reset" class="raised button-submit block">
                         <span>${Change}</span>
+                    </button>
+                </div>
+            </form>
+            <form id="AddToLibraryConfigForm">
+                <div>
+                    <h3>Add a media to another library</h3>
+                    <button is="emby-button" type="reset" class="raised button-submit block">
+                        <span>${Add}</span>
                     </button>
                 </div>
             </form>

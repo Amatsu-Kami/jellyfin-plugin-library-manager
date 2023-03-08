@@ -11,4 +11,8 @@
 ### 2023/03/06 Version 1.0
 
 - The plugin is now functional.
-- Possible to change the library of medias.
+- Add the functionality to change the library of medias.
+
+### 2023/03/06 Version 1.1
+
+- Add the functionality to add a media to other library.

@@ -8,7 +8,7 @@ export default function (view, param) {
         const page = this;
     })
 
-    view.querySelector('#LibraryManagerConfigForm').addEventListener('reset', function (e) {
+    view.querySelector('#ChangeLibraryConfigForm').addEventListener('reset', function (e) {
         const form = this;
         Dashboard.showLoadingMsg();
 
@@ -16,6 +16,19 @@ export default function (view, param) {
         const newUrl = changePageUrl(newName);
         
         window.location.href = newUrl;
+        window.location.reload();
+        Dashboard.hideLoadingMsg();
+    });
+
+    view.querySelector('#AddToLibraryConfigForm').addEventListener('reset', function (e) {
+        const form = this;
+        Dashboard.showLoadingMsg();
+
+        const newName = 'AddToLibrary';
+        const newUrl = changePageUrl(newName);
+
+        window.location.href = newUrl;
+        window.location.reload();
         Dashboard.hideLoadingMsg();
     });
 }

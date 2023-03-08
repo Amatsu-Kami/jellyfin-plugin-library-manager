@@ -2,7 +2,7 @@
 
 name: "Library-Manager"
 guid: "ee998539-7959-4afa-a88a-9755e315b839"
-version: "1.0.0.0"
+version: "1.1.0.0"
 targetAbi: "10.8.0.0"
 framework: "net6.0"
 overview: "This plugin let's you manage your library."

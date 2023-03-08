@@ -14,16 +14,16 @@ export default function (view, param) {
         })
     })
 
-    view.querySelector('#ChangeLibraryConfigForm').addEventListener('submit', function (e) {
+    view.querySelector('#AddToLibraryConfigForm').addEventListener('submit', function (e) {
         e.preventDefault();
         Dashboard.showLoadingMsg();
         const form = this
         const libraryUrl = form.querySelector('#LibraryList').value;
         const mediaName = form.querySelector('#MediaList').value;
         const data = JSON.stringify({ LibraryUrl: libraryUrl, MediaName: mediaName });
-        const url = ApiClient.getUrl('LibraryManager/ChangeLibrary');
+        const url = ApiClient.getUrl('LibraryManager/AddToLibrary');
         const responseDiv = form.querySelector('#response');
-        responseDiv.innerText = `The library of the media is being changed, please wait...`;
+        responseDiv.innerText = `The media is being added, please wait...`;
         ApiClient.getPluginConfiguration(LibraryManagerConfig.pluginId).then(config => {
 
             const handler = response => response.json().then(res => {
