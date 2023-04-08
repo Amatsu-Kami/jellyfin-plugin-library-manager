@@ -28,6 +28,10 @@ There will also be another button called "Add Library", which will show the wind
 
 The second functionality is to 'Add to Library'. This functionality will let you copy the media to another library, but beware as this will take double the space, since the media will be present in two library.
 
+## Known Issues
+
+This extension doesn't seem to work well in a container, docker for example. There is no plan to work on this issue at the moment.
+
 ## Code
 
 The standard of this plugin is the same as Jellyfin. Jellyfin is built using .NET 6 and C#.

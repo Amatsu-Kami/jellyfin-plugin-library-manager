@@ -1,5 +1,3 @@
-using MediaBrowser.Controller.Entities;
-
 namespace Jellyfin.Plugin.LibraryManager.Model
 {
     /// <summary>

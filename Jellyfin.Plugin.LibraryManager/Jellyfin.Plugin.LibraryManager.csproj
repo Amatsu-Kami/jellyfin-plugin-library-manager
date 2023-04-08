@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Jellyfin.Plugin.LibraryManager</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.1</AssemblyVersion>
+    <FileVersion>1.1.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
