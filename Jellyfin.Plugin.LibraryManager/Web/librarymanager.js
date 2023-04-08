@@ -1,15 +1,16 @@
-const LibraryManagerConfig = {
-    pluginId: 'ee998539-7959-4afa-a88a-9755e315b839'
-};
+/**
+ * @fileoverview Class to redirect the user to the option chosen
+ * @author Amatsu-Kami
+ * @version 1.1.0.1
+ */
 
-export default function (view, param) {
-
-    view.addEventListener('viewshow', function (e) {
-        const page = this;
-    })
-
+/**
+ * The default function
+ *
+ * @param {any} view The view related to this class
+ */
+export default function (view) {
     view.querySelector('#ChangeLibraryConfigForm').addEventListener('reset', function (e) {
-        const form = this;
         Dashboard.showLoadingMsg();
 
         const newName = 'ChangeLibrary';
@@ -21,7 +22,6 @@ export default function (view, param) {
     });
 
     view.querySelector('#AddToLibraryConfigForm').addEventListener('reset', function (e) {
-        const form = this;
         Dashboard.showLoadingMsg();
 
         const newName = 'AddToLibrary';
@@ -33,6 +33,11 @@ export default function (view, param) {
     });
 }
 
+/**
+ * Redirect the user to the page chosen
+ * 
+ * @param {any} newName The name of the page to redirect to
+ */
 function changePageUrl(newName) {
     let currentUrl = new URL(window.location.href);
     let newUrl = new String();

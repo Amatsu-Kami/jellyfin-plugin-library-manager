@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Plugins;
 
 namespace Jellyfin.Plugin.LibraryManager.Configuration

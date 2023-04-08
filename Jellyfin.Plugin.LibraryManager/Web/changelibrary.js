@@ -1,8 +1,20 @@
+/**
+ * @fileoverview Class to change the library of a media
+ * @author Amatsu-Kami
+ * @version 1.1.0.1
+ */
+
+// The configuration of the plugin
 const LibraryManagerConfig = {
     pluginId: 'ee998539-7959-4afa-a88a-9755e315b839'
 };
 
-export default function (view, param) {
+/**
+ * The default function
+ *
+ * @param {any} view The view related to this class
+ */
+export default function (view) {
     view.addEventListener('viewshow', function (e) {
         const page = this;
         Dashboard.showLoadingMsg();
@@ -51,6 +63,11 @@ export default function (view, param) {
     });
 }
 
+/**
+ * Set the Div for the library
+ *
+ * @param {any} page The page where to set the div
+ */
 function setLibraryDiv(page) {
     const libraryList = page.querySelector('#LibraryList');
 
@@ -58,7 +75,7 @@ function setLibraryDiv(page) {
         let librariesHtml = '<div data-role="controlgroup">';
         for (let folder of virtualFolders) {
             for (let location of folder.Locations) {
-                librariesHtml += getLibraryPathHtml(location);
+                librariesHtml += setLibraryPathHtml(location);
             }
         }
         librariesHtml += '</div>';
@@ -67,6 +84,11 @@ function setLibraryDiv(page) {
     });
 }
 
+/**
+ * Set the Div for the media
+ *
+ * @param {any} page The page where to set the div
+ */
 function setMediaDiv(page) {
     const MediaList = page.querySelector('#MediaList');
     const userId = ApiClient.getCurrentUserId();
@@ -79,7 +101,7 @@ function setMediaDiv(page) {
     ApiClient.getItems(userId, options).then(medias => {
         let mediasHtml = '<div data-role="controlgroup">';
         for (let media of medias.Items) {
-            mediasHtml += getMediaNameHtml(media.Name);
+            mediasHtml += setMediaNameHtml(media.Name);
         }
         mediasHtml += '</div>';
 
@@ -87,14 +109,24 @@ function setMediaDiv(page) {
     });
 }
 
-function getLibraryPathHtml(path) {
+/**
+ * Set the path of the library in an option
+ *
+ * @param {any} path The path of the library
+ */
+function setLibraryPathHtml(path) {
     let html = '<label>';
     html += '<option data-mini="true" data-path="' + path + '"' + ' />';
     html += '<span>' + path + '</span></label>';
     return html;
 }
 
-function getMediaNameHtml(name) {
+/**
+ * Set the name of the media in an option
+ *
+ * @param {any} name The name of the media
+ */
+function setMediaNameHtml(name) {
     let html = '<label>';
     html += '<option data-mini="true" data-name="' + name + '"' + ' />';
     html += '<span>' + name + '</span></label>';

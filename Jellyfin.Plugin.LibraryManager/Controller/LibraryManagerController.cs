@@ -59,23 +59,7 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
                     }
                     else
                     {
-                        string sourceFile;
-                        string destinationFile;
-                        if (media.IsFolder)
-                        {
-                            sourceFile = media.Path;
-                            destinationFile = library + "\\" + media.Name;
-                        }
-                        else
-                        {
-                            sourceFile = media.ContainingFolderPath.ToString();
-                            destinationFile = library + "\\" + media.Name;
-                        }
-
-                        await Task.Run(() => Copy(sourceFile, destinationFile));
-
-                        Directory.Delete(sourceFile, true);
-
+                        await RunAsync(media, library, true);
                         return Ok(new { Message = "The media has been changed successfully." });
                     }
                 }
@@ -118,24 +102,9 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
                     }
                     else
                     {
-                        string sourceFile;
-                        string destinationFile;
-                        if (media.IsFolder)
-                        {
-                            sourceFile = media.Path;
-                            destinationFile = library + "\\" + media.Name;
-                        }
-                        else
-                        {
-                            sourceFile = media.ContainingFolderPath.ToString();
-                            destinationFile = library + "\\" + media.Name;
-                        }
-
-                        await Task.Run(() => Copy(sourceFile, destinationFile));
-
+                        await RunAsync(media, library, false);
                         return Ok(new { Message = "The media has been added successfully." });
                     }
-
                 }
                 else
                 {
@@ -145,6 +114,35 @@ namespace Jellyfin.Plugin.LibraryManager.Controller
             catch
             {
                 return BadRequest(new { Message = "An error has occured." });
+            }
+        }
+
+        /// <summary>
+        /// Method to start the copy operation
+        /// </summary>
+        /// <param name="media">The media to add or change</param>
+        /// <param name="library">The library of the media</param>
+        /// <param name="delete">Bool to know if the media is being added or changed</param>
+        /// <returns>Task</returns>
+        private static async Task RunAsync(BaseItem media, string library, bool delete)
+        {
+            string sourceFile;
+            string destinationFile;
+            if (media.IsFolder)
+            {
+                sourceFile = media.Path;
+                destinationFile = library + "\\" + media.Name;
+            }
+            else
+            {
+                sourceFile = media.ContainingFolderPath.ToString();
+                destinationFile = library + "\\" + media.Name;
+            }
+            await Task.Run(() => Copy(sourceFile, destinationFile));
+
+            if (delete == true)
+            {
+                Directory.Delete(sourceFile, true);
             }
         }
 
