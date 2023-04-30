@@ -42,6 +42,10 @@ The standard of this plugin is the same as Jellyfin. Jellyfin is built using .NE
 
 You can contribute to this project by creating issues for bugs you found or features you think would be a good addition to this plugin. You can also fork this project to make the changes yourself.
 
+## Contact
+
+If you have any question about the plugin, if you found a bug you would like to report directly or if you need help, feel free to join my discord server: https://discord.gg/cjg3FBtm2W
+
 ## License
 
 This plugin use a GPLv3 license. To see the license, see the "LICENSE" file in the project.
