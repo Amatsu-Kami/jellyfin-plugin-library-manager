@@ -6,7 +6,7 @@
 
 This plugin let the user manage his library without having to go in the file explorer. This will let you change the library of the media. It will also give you the ability to create a new library when changing the library of the media.
 
-This plugin has been tested for Windows. Can't guarantee this plugin will work on any other OS, like Linux.
+This plugin has been tested for Windows. Can't guarantee this plugin will work on any other OS, like Linux or macOS.
 
 ## Installation
 
@@ -32,7 +32,7 @@ The second functionality is to 'Add to Library'. This functionality will let you
 
 ## Known Issues
 
-This extension doesn't seem to work well in a container, docker for example. There is no plan to work on this issue at the moment.
+This extension doesn't seem to work well on linux. There is no plan to work on this issue at the moment.
 
 ## Code
 
